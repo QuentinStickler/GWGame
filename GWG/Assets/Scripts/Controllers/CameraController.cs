@@ -1,6 +1,8 @@
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
+
+//Potentielles Problem: Camera Clipping, Bugs wenn man in ein Haus geht etc.
 {
     #region Variables
     
