@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 792024666}
   - component: {fileID: 792024668}
   - component: {fileID: 792024669}
+  - component: {fileID: 792024670}
   m_Layer: 0
   m_Name: KlausKreis
   m_TagString: Untagged
@@ -34353,6 +34354,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   move: {x: 0, y: 0}
+  direction: {x: 0, y: 0, z: 0}
+  movement:
+    m_Name: Movement
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 42e1d386-fab5-453f-98ac-55729ad86c98
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!65 &792024668
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34412,13 +34423,31 @@ MonoBehaviour:
   m_DefaultActionMap: Move
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!143 &792024670
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792024659}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.2
+  m_Radius: 0.6
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: -0.41, y: 0.48, z: -0.43}
 --- !u!43 &904501734
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24454
+  m_Name: pb_Mesh24554
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -34931,6 +34960,7 @@ GameObject:
   - component: {fileID: 1158104632}
   - component: {fileID: 1158104631}
   - component: {fileID: 1158104630}
+  - component: {fileID: 1158104633}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -35004,13 +35034,27 @@ Transform:
   m_Father: {fileID: 694816605}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1158104633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158104629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 159d8e6e78941b4439d3a6ae086bb6cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 792024665}
+  smoothTime: 0.25
 --- !u!43 &1462858129
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24476
+  m_Name: pb_Mesh24576
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
