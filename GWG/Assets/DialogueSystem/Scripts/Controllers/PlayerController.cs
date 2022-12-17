@@ -5,10 +5,11 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-    public Vector2 move;
-    public Vector3 direction;
+    private Vector2 move;
+    private Vector3 direction;
     public InputAction movement;
     private CharacterController controller;
+    private Vector3 gravity;
 
     private void Start()
     {
@@ -25,12 +26,19 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         Move();
+        ApplyGravity();
     }
 
 
-    public void Move()
+    private void Move()
     {
         controller.Move(direction * speed * Time.deltaTime);
+    }
+
+    private void ApplyGravity()
+    {
+        gravity.y += -10f * Time.deltaTime;
+        controller.Move(gravity * Time.deltaTime);
     }
 
     private Vector3 IsoVectorConvert(Vector3 vector)
