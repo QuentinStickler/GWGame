@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class RoomSwitcher : MonoBehaviour
 {
-
     public int sceneIndex;
     private void OnTriggerEnter(Collider other)
     {

@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2712394434954932348}
   - component: {fileID: 2712394434954932339}
   - component: {fileID: 2712394434954932336}
-  - component: {fileID: 2712394434954932337}
   - component: {fileID: 2712394434954932351}
   - component: {fileID: 2712394434954932344}
   - component: {fileID: 2712394434954932347}
+  - component: {fileID: 2712394435834720170}
   m_Layer: 6
   m_Name: KlausKreis
   m_TagString: Player
@@ -87,20 +87,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2712394434954932342}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &2712394434954932337
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2712394434954932342}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!114 &2712394434954932351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,4 +172,17 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &2712394435834720170
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2712394434954932342}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
