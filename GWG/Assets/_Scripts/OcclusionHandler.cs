@@ -7,39 +7,50 @@ using UnityEngine;
 public class OcclusionHandler : MonoBehaviour
 {
     [SerializeField] private Transform _player;
-    // private Transform _camera;
-    [SerializeField] private LayerMask _layerMask;
     [SerializeField, Range(0f, 1f)] private float _fadeOutTime = 0.2f;
     [SerializeField, Range(0f, 1f)] private float _fadeOutOpacity = 0.5f;
     [SerializeField, Range(0f, 1f)] private float _fadeInTime = 0.2f;
-    private List<GameObject> occludors = new List<GameObject>();
-    private List<GameObject> occludorsLast = new List<GameObject>();
+    private Transform _camera;
+    private List<GameObject> _occludors = new List<GameObject>();
+    private List<GameObject> _occludorsLast = new List<GameObject>();
+
+    private void Awake()
+    {
+        _camera = Camera.main.transform;
+    }
 
     void Update()
     {
-        // _camera = Camera.main.transform;
-        var direction = _player.position - transform.position;
-        // var direction = _player.position - _camera.position;
+        var camForward = _camera.forward;
+        var direction = _player.position - _camera.position;
+        direction = camForward * Vector3.Dot(camForward, direction);
+        
         var hits =
-        Physics.RaycastAll(transform.position, direction, direction.magnitude, _layerMask);
-        // Physics.RaycastAll(_camera.position, direction, direction.magnitude, _layerMask);
+        // Physics.RaycastAll(_player.position, -1 * direction, direction.magnitude, _layerMask);
+        Physics.SphereCastAll(_player.position - direction, 0.49f , direction, direction.magnitude, TransparencyManager.Instance.EnvironmentMask);
 
         // For debugging purposes, comment out when not needed
-        Debug.DrawLine(transform.position, _player.position, hits.Length > 0 ? Color.red : Color.green);
-        // Debug.DrawLine(_camera.position, _player.position, hits.Length > 0 ? Color.red : Color.green);
+        Debug.DrawLine(_player.position, _player.position - direction, hits.Length > 0 ? Color.red : Color.green);
 
-        occludors = hits.Select(e => e.collider.gameObject).ToList();
+        _occludors = hits.Select(e => e.collider.gameObject).ToList();
 
-        var removed = occludorsLast.Except(occludors).ToList();
-        var added = occludors.Except(occludorsLast).ToList();
+        var removed = _occludorsLast.Except(_occludors).ToList();
+        var added = _occludors.Except(_occludorsLast).ToList();
+        // var stayed = _occludors.Except(added).ToList();
 
-        if(added.Count > 0)
-            StartCoroutine(TransparencyManager.Instance.FadeOut(added, _fadeOutOpacity, _fadeOutTime));
-        if(removed.Count > 0)
-            StartCoroutine(TransparencyManager.Instance.FadeIn(removed, _fadeInTime));
+        foreach (var obj in added)
+        {
+                TransparencyManager.Instance.StartFadeOut(obj, _fadeOutOpacity,_fadeOutTime);
+        }
 
-        occludorsLast = new List<GameObject>(occludors);
-        occludors.Clear();
+        foreach (var obj in removed)
+        {
+            TransparencyManager.Instance.StartFadeIn(obj, _fadeInTime);
+        }
+
+
+        _occludorsLast = new List<GameObject>(_occludors);
+        _occludors.Clear();
     }
 
     // private void OnCameraChanged()

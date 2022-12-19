@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,9 +6,12 @@ public class RoomManager : MonoBehaviour
 {
     [SerializeField, Range(0f, 1f)] private float _fadeOutTime = 0.5f;
     [SerializeField, Range(0f, 1f)] private float _fadeInTime = 0.5f;
+    private RoomTrigger _currentRoom;
+    private List<RoomTrigger> rooms = new List<RoomTrigger>();
+    private List<Renderer> renderers = new List<Renderer>();
     
     public static RoomManager Instance;
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -22,23 +24,63 @@ public class RoomManager : MonoBehaviour
             return;
         }
 
+        rooms = FindObjectsOfType<RoomTrigger>().ToList();
+        foreach (var room in rooms)
+        {
+            room.RoomEntered += OnEnterRoom;
+        }
+
         // DontDestroyOnLoad(gameObject);
     }
-    
-    public void FadeOut(RoomTrigger room)
+
+    public void OnEnterRoom(RoomTrigger room)
     {
-        var children = gameObject
-            .GetAllChildren(false)
-            .Where(e => e.GetComponent<RoomTrigger>() == null)
-            .ToList();
-        var ignore = room.gameObject.GetAllChildren(true);
-        var fade = children.Except(ignore).ToList();
-        StartCoroutine(TransparencyManager.Instance.FadeOut(fade, 0f, _fadeOutTime));
+        _currentRoom = room;
+        FadeOut(room);
+        FadeIn(room);
     }
     
-    public void FadeIn(RoomTrigger room)
+    private void FadeOut(RoomTrigger ignoredRoom)
     {
-        var children  = room.gameObject.GetAllChildren(true);
-        StartCoroutine(TransparencyManager.Instance.FadeIn(children, _fadeInTime));
+        // var rooms = gameObject
+        //         .GetComponentsInChildren<RoomTrigger>()
+        //         .Where(e => e != ignoredRoom)
+        //         .ToList();
+
+        var roomTriggers = gameObject
+            .GetComponentsInChildren<RoomTrigger>()
+            .Select(e => e.gameObject)
+            .ToList();
+    
+        var rooms = gameObject
+            .GetAllChildren(false)
+            .Where(e => !roomTriggers.Contains(e) && ((1 << e.layer) & TransparencyManager.Instance.EnvironmentMask) > 0)
+            .ToList();
+        
+        var ignore = ignoredRoom.gameObject.GetAllChildren(true);
+        var fade = rooms.Except(ignore).ToList();
+        
+        foreach (var obj in fade)
+        {
+            TransparencyManager.Instance.StartFadeOut(obj, 0,_fadeOutTime);
+        }
+    }
+
+    private void FadeIn(RoomTrigger room)
+    {
+        var children  = room.gameObject.GetAllChildren(true)
+            .Where(e => ((1 << e.layer) & TransparencyManager.Instance.EnvironmentMask) > 0);
+        foreach (var obj in children)
+        {
+            TransparencyManager.Instance.StartFadeIn(obj, _fadeInTime);
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach (var room in rooms)
+        {
+            room.RoomEntered -= OnEnterRoom;
+        }
     }
 }
