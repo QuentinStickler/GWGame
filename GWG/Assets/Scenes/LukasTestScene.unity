@@ -490,17 +490,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: Klaus Kreis
     sentences:
-    - Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-      tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-      At vero eos et accusam et justo duo dolores et ea...
-    - Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-      tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-      At vero eos et accusam et justo duo dolores et ea...
-    - Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-      tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
-      At vero eos et accusam et justo duo dolores et ea...
+    - name: Klaus Kreis
+      sentence: "Hallo du Nasenb\xE4r"
+    - name: Quintus Quadrat
+      sentence: "Gr\xFC\xDFe dich Klaus"
 --- !u!4 &388013377
 Transform:
   m_ObjectHideFlags: 0
@@ -2419,6 +2413,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 654138380}
     m_Modifications:
+    - target: {fileID: 5924572123991779994, guid: 1e94b8d3a934e4a44aba08c49abee426, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5924572124186839953, guid: 1e94b8d3a934e4a44aba08c49abee426, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

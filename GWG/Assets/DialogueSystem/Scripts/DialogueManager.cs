@@ -6,37 +6,36 @@ using UnityEngine.UI;
 
 namespace DefaultNamespace
 {
-    public class DialogueManager : MonoBehaviour {
-
+    public class DialogueManager : MonoBehaviour
+    {
         public TextMeshProUGUI nameText;
         public TextMeshProUGUI dialogueText;
 
         public Animator animator;
 
-        private Queue<string> sentences;
+        private Queue<SpokenWord> sentences;
 
         // Use this for initialization
-        void Start () {
-            sentences = new Queue<string>();
+        void Start()
+        {
+            sentences = new Queue<SpokenWord>();
         }
 
-        public void StartDialogue (Dialogue dialogue)
+        public void StartDialogue(Dialogue dialogue)
         {
             animator.SetBool("IsOpen", true);
 
-            nameText.text = dialogue.name;
-
             sentences.Clear();
 
-            foreach (string sentence in dialogue.sentences)
+            foreach (var dialogueSentence in dialogue.sentences)
             {
-                sentences.Enqueue(sentence);
+                sentences.Enqueue(dialogueSentence);
             }
 
             DisplayNextSentence();
         }
 
-        public void DisplayNextSentence ()
+        public void DisplayNextSentence()
         {
             if (sentences.Count == 0)
             {
@@ -44,13 +43,16 @@ namespace DefaultNamespace
                 return;
             }
 
-            string sentence = sentences.Dequeue();
+            var spokenWord = sentences.Dequeue();
+            var sentence = spokenWord.sentence;
+            var npcName = spokenWord.name;
             StopAllCoroutines();
-            StartCoroutine(TypeSentence(sentence));
+            StartCoroutine(TypeSentence(npcName, sentence));
         }
 
-        IEnumerator TypeSentence (string sentence)
+        IEnumerator TypeSentence(string name, string sentence)
         {
+            nameText.text = name;
             dialogueText.text = "";
             foreach (var letter in sentence.ToCharArray())
             {
@@ -63,6 +65,5 @@ namespace DefaultNamespace
         {
             animator.SetBool("IsOpen", false);
         }
-
     }
 }
