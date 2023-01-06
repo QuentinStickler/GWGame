@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,13 +9,22 @@ public class PlayerController : MonoBehaviour
     public float speed;
     private Vector2 move;
     private Vector3 direction;
-    public InputAction movement;
     private CharacterController controller;
     private Vector3 gravity;
+    public bool canMove;
+    public bool isInGame;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
+        GameEvents.OnInteractingWithMiniGame += DisableMovement;
+        canMove = true;
+        isInGame = false;
+    }
+
+    public void DisableMovement(bool isPlaying)
+    {
+        canMove = isPlaying;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -25,11 +36,31 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if(canMove)
+            Move();
         ApplyGravity();
     }
 
+    private void LateUpdate()
+    {
+        if(!isInGame)
+            LookForInteractableObjects();
+        else if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            isInGame = false;
+            canMove = true;
+            GameEvents.OnStopInteractingWithMiniGame?.Invoke();
+        }
+    }
 
+    public void LookForInteractableObjects()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 6f, LayerMask.GetMask("Interactable"));
+        if (!Keyboard.current.eKey.wasPressedThisFrame) return;
+        if (colliders.Length <= 0) return;
+        colliders[0].gameObject.GetComponent<IInteractable>().Interact();
+        isInGame = true;
+    }
     private void Move()
     {
         controller.Move(direction * speed * Time.deltaTime);
