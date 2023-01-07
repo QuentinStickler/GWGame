@@ -9,9 +9,7 @@ public class ButtonMInigame : MonoBehaviour
 
     public void Game()
     {
-        Debug.Log(EventSystem.current.currentSelectedGameObject.name.Equals(rightValue.ToString()));
         if (EventSystem.current.currentSelectedGameObject.name.Equals(rightValue.ToString()))
             GameEvents.OnFoundRightSolutionToGhostGame?.Invoke();
-        
     }
 }

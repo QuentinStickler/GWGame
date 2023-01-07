@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using cakeslice;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +13,46 @@ public class PlayerController : MonoBehaviour
     private Vector3 gravity;
     public bool canMove;
     public bool isInGame;
+    private PlayerMovement playerMovement;
+    private InputAction hideUi;
+    private InputAction scan;
 
+    public GameObject ui;
+
+    private void Awake()
+    {
+        playerMovement = new PlayerMovement();
+    }
+
+    private void OnEnable()
+    {
+        hideUi = playerMovement.Specials.HideUi;
+        hideUi.Enable();
+        hideUi.performed += HideUi;
+        
+        scan = playerMovement.Specials.Scan;
+        scan.Enable();
+        scan.performed += Scan;
+    }
+
+    private void OnDisable()
+    {
+        hideUi.Disable();
+        hideUi.performed -= HideUi;
+        
+        scan.Disable();
+        scan.performed -= Scan;
+    }
+
+    private void HideUi(InputAction.CallbackContext context)
+    {
+        ui.SetActive(!ui.activeSelf);
+    }
+
+    private void Scan(InputAction.CallbackContext context)
+    {
+        Debug.Log("Scanning");
+    }
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -56,8 +95,9 @@ public class PlayerController : MonoBehaviour
     public void LookForInteractableObjects()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 6f, LayerMask.GetMask("Interactable"));
-        if (!Keyboard.current.eKey.wasPressedThisFrame) return;
         if (colliders.Length <= 0) return;
+        colliders[0].gameObject.GetComponent<Outline>().eraseRenderer = false;
+        if (!Keyboard.current.eKey.wasPressedThisFrame) return;
         colliders[0].gameObject.GetComponent<IInteractable>().Interact();
         isInGame = true;
     }
@@ -79,4 +119,6 @@ public class PlayerController : MonoBehaviour
         Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
         return result;
     }
+    
+    
 }

@@ -6,12 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/NikitaScene.unity
-    guid: 0ce0be253c71e9242ad3fb677cea8c86
-  - enabled: 1
     path: Assets/Scenes/QuentinScene.unity
     guid: fdadbe15dcf9e3142b61924c1583ce98
-  - enabled: 1
-    path: Assets/Scenes/Outdoor Bereich.unity
-    guid: b945aa2626a8a5a419ef722eeb2cc264
   m_configObjects: {}
