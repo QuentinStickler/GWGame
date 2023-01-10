@@ -12,7 +12,7 @@ public class GameEvents
 
 /*
 Wieder wechseln:
-Light auf Directional setzen, Intensity veringern
+Light auf Directional setzen, Intensity verringern
 Lighting Settings auf Skybox setzen
 Skybox in Camera auf Solid Color blau setzen
 */

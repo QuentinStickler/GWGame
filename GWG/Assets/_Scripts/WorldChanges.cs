@@ -20,6 +20,7 @@ public class WorldChanges : MonoBehaviour
     {
         lightBox.GetComponent<Outline>().eraseRenderer = true;
         lightBox.layer = 8;
+        
         camera.backgroundColor = new Color(23,27,50);
         RenderSettings.skybox = skybox;
         
