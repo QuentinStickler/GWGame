@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -12,7 +13,14 @@ public class CameraController : MonoBehaviour
     private Vector3 _currentVelocity = Vector3.zero;
         
     #endregion
-    private void Awake() => _offset = transform.position - target.position;
+    private void Awake()
+    {
+        _offset = transform.position - target.position;
+        var camera = gameObject.GetComponent<Camera>();
+        camera.transparencySortMode = TransparencySortMode.CustomAxis;
+        camera.transparencySortAxis = new Vector3(0, -1, 0);
+        // gameObject.GetComponent<Camera>().transparencySortAxis = transform.forward;
+    }
 
     private void LateUpdate()
     {

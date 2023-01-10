@@ -25,15 +25,15 @@ public class TransparencyManager : MonoBehaviour
         var renderer = obj.GetComponent<Renderer>();
         if (renderer == null) return;
 
-        // if ((_thirdParty & (1 << obj.layer)) > 0)
-            // MakeTransparent(renderer);
+        foreach (var material in renderer.materials)
+        {
+            // material.SetBlendMode(Extensions.BlendMode.Transparent);
+            material.SetBlendMode(Extensions.BlendMode.Fade);
+        }
 
         iTween.FadeTo(obj, iTween.Hash(
             "alpha", targetAlpha,
             "time", fadeOutTime,
-            // "onStartTarget", gameObject,
-            // "onStart", "MakeTransparent",
-            // "onStartParams", renderer,
             "onCompleteTarget", gameObject,
             "onComplete", "OnFadeOutComplete",
             "onCompleteParams", obj
@@ -66,39 +66,11 @@ public class TransparencyManager : MonoBehaviour
     
     private void OnFadeInComplete(GameObject obj)
     {
-        // var renderer = obj.GetComponent<Renderer>();
-        // if(renderer != null && (_thirdParty & (1 << obj.layer)) > 0) 
-            // MakeOpaque(renderer);
-    }
+        var renderer = obj.GetComponent<Renderer>();
 
-    private void MakeTransparent(Renderer renderer)
-    {
         foreach (var material in renderer.materials)
         {
-            // material.SetFloat("_Mode", 3);
-            material.SetFloat("_Mode", 2);
-            material.SetInt("_ScrBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusDstAlpha);
-            material.SetInt("_ZWrite", 0);
-            material.DisableKeyword("_ALPHATEST_ON");
-            material.EnableKeyword("_ALPHABLEND_ON");
-            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            material.renderQueue = 3000;
-        }
-    }
-    
-    private void MakeOpaque(Renderer renderer)
-    {
-        foreach (var material in renderer.materials)
-        {
-            // material.SetFloat("_Mode", 0);
-            material.SetInt("_ScrBlend", (int)UnityEngine.Rendering.BlendMode.One);
-            material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-            material.SetInt("_ZWrite", 1);
-            material.DisableKeyword("_ALPHATEST_ON");
-            material.DisableKeyword("_ALPHABLEND_ON");
-            material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            material.renderQueue = -1;
+            material.SetBlendMode(Extensions.BlendMode.Opaque);
         }
     }
 }

@@ -40,12 +40,18 @@ public class OcclusionHandler : MonoBehaviour
 
         foreach (var obj in added)
         {
-                TransparencyManager.Instance.StartFadeOut(obj, _fadeOutOpacity,_fadeOutTime);
+            foreach (var child in obj.GetAllChildren(true))
+            {
+                TransparencyManager.Instance.StartFadeOut(child, _fadeOutOpacity,_fadeOutTime);
+            }
         }
 
         foreach (var obj in removed)
         {
-            TransparencyManager.Instance.StartFadeIn(obj, _fadeInTime);
+            foreach (var child in obj.GetAllChildren(true))
+            {
+                TransparencyManager.Instance.StartFadeIn(child, _fadeInTime);
+            }
         }
 
 
