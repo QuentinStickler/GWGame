@@ -28,7 +28,14 @@ public class WorldChanges : MonoBehaviour
         light.intensity = 1;
         ghostLight.gameObject.SetActive(false);
         
-        DynamicGI.UpdateEnvironment();
+        DynamicGI.UpdateEnvironment(); 
         camera.backgroundColor = new Color(23,27,50);
+    }
+
+    private void TalkingToGhost()
+    {
+        //Open up the door to the generator if not already open
+        //Trigger Dialoge
+        //Look if riddle has already been completed.
     }
 }

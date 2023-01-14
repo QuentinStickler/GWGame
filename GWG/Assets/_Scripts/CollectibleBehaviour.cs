@@ -10,7 +10,7 @@ public class CollectibleBehaviour : MonoBehaviour, IInteractable
 
     float speed = 1.5f;
     private float rotationSpeed = 0.1f;
-    float height = 0.3f;
+    float height = 0.5f;
     private Vector3 startingPos;
 
     public GameObject collectibleText;
@@ -22,8 +22,8 @@ public class CollectibleBehaviour : MonoBehaviour, IInteractable
 
     void Update()
     {
-        float newY = Mathf.Sin(Time.time * speed);
-        transform.position = new Vector3(startingPos.x, startingPos.y + newY, startingPos.z) * height;
+        float newY = Mathf.Sin(Time.time * speed) * height;
+        transform.position = new Vector3(startingPos.x, startingPos.y + newY, startingPos.z);
         transform.Rotate( new Vector3(0, rotationSpeed, 0) );
     }
     public void Interact()

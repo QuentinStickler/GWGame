@@ -96,7 +96,9 @@ public class PlayerController : MonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, 6f, LayerMask.GetMask("Interactable"));
         if (colliders.Length <= 0) return;
-        colliders[0].gameObject.GetComponent<Outline>().eraseRenderer = false;
+        Outline outline = colliders[0].gameObject.GetComponent<Outline>();
+        if(outline != null)
+            outline.eraseRenderer = false;
         if (!Keyboard.current.eKey.wasPressedThisFrame) return;
         colliders[0].gameObject.GetComponent<IInteractable>().Interact();
         isInGame = true;
