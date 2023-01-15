@@ -26,6 +26,7 @@ namespace DefaultNamespace
             animator.SetBool("IsOpen", true);
 
             sentences.Clear();
+            Cursor.visible = true;
 
             foreach (var dialogueSentence in dialogue.sentences)
             {
@@ -64,6 +65,7 @@ namespace DefaultNamespace
         void EndDialogue()
         {
             animator.SetBool("IsOpen", false);
+            Cursor.visible = false;
         }
     }
 }

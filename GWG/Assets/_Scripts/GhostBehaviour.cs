@@ -12,7 +12,6 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
 
     public DialogueTrigger dialogueTeller1;
     public DialogueTrigger dialogueTeller2;
-    public GameObject dialogueUi;
 
     private void Start()
     {
@@ -28,10 +27,6 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        //Bug: Dialoge werden nicht angezeigt
-        //Wann ist Dialog zu Ende? Gibt es da einen Trigger?
-        dialogueUi.SetActive(true);
-        Cursor.visible = true;
         if(riddleSolved)
             dialogueTeller2.TriggerDialogue();
         else
@@ -43,7 +38,6 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
     private void UpdateDialogue()
     {
         riddleSolved = true;
-        Debug.Log("Updated Dialog");
     }
 
     public void Glow()
