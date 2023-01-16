@@ -10,10 +10,14 @@ namespace DefaultNamespace
     {
         public TextMeshProUGUI nameText;
         public TextMeshProUGUI dialogueText;
+        public GameObject klausKreis;
+        public GameObject shoulderCam;
 
         public Animator animator;
 
         private Queue<SpokenWord> sentences;
+        private Quaternion dialogPartnerRot;
+        private GameObject currentDialogPartner;
 
         // Use this for initialization
         void Start()
@@ -21,9 +25,18 @@ namespace DefaultNamespace
             sentences = new Queue<SpokenWord>();
         }
 
-        public void StartDialogue(Dialogue dialogue)
+        public void StartDialogue(Dialogue dialogue, DialogueTrigger trigger)
         {
+            currentDialogPartner = trigger.transform.parent.gameObject;
             animator.SetBool("IsOpen", true);
+            dialogPartnerRot = currentDialogPartner.transform.rotation;
+            trigger.transform.parent.LookAt(klausKreis.transform);
+
+            var dialogPartnerPos = currentDialogPartner.transform.position;
+            dialogPartnerPos.y = klausKreis.transform.position.y;
+            
+            klausKreis.transform.LookAt(dialogPartnerPos);
+            shoulderCam.SetActive(true);
 
             sentences.Clear();
             Cursor.visible = true;
@@ -67,6 +80,8 @@ namespace DefaultNamespace
             animator.SetBool("IsOpen", false);
             Cursor.visible = false;
             GameEvents.OnFinishedDialogue?.Invoke();
+            shoulderCam.SetActive(false);
+            currentDialogPartner.transform.rotation = dialogPartnerRot;
         }
     }
 }
