@@ -13,9 +13,12 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
     public DialogueTrigger dialogueTeller1;
     public DialogueTrigger dialogueTeller2;
 
+    public GameObject ghostText;
+
     private void Start()
     {
         GameEvents.OnFoundRightSolutionToGhostGame += UpdateDialogue;
+        GameEvents.OnFinishedDialogue += DespawnAndDropLoot;
         startingPos = transform.position;
     }
 
@@ -27,14 +30,29 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if(riddleSolved)
+        if (riddleSolved)
+        {
             dialogueTeller2.TriggerDialogue();
+        }
         else
         {
             dialogueTeller1.TriggerDialogue();
         }
     }
 
+    public void DespawnAndDropLoot()
+    {
+        if (!riddleSolved) return;
+        ghostText.SetActive(true);
+        StartCoroutine(DeactivateText());
+    }
+
+    IEnumerator DeactivateText()
+    {
+        yield return new WaitForSeconds(5f);
+        ghostText.SetActive(false);
+        Destroy(gameObject);
+    }
     private void UpdateDialogue()
     {
         riddleSolved = true;

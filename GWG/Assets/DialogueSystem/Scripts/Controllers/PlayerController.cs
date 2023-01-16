@@ -55,10 +55,14 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        controller = GetComponent<CharacterController>();
         GameEvents.OnInteractingWithMiniGame += DisableMovement;
+        GameEvents.OnFinishedDialogue += () => isInGame = false;
+        GameEvents.OnPickedUpCollectible += () => isInGame = false;
+        
+        controller = GetComponent<CharacterController>();
         canMove = true;
         isInGame = false;
+        Cursor.visible = false;
     }
 
     public void DisableMovement(bool isPlaying)
@@ -100,8 +104,8 @@ public class PlayerController : MonoBehaviour
         if(outline != null)
             outline.eraseRenderer = false;
         if (!Keyboard.current.eKey.wasPressedThisFrame) return;
-        colliders[0].gameObject.GetComponent<IInteractable>().Interact();
         isInGame = true;
+        colliders[0].gameObject.GetComponent<IInteractable>().Interact();
     }
     private void Move()
     {

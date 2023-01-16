@@ -34,6 +34,7 @@ public class CollectibleBehaviour : MonoBehaviour, IInteractable
     IEnumerator DestroyText()
     {
         collectibleText.SetActive(true);
+        GameEvents.OnPickedUpCollectible?.Invoke();
         GetComponent<MeshRenderer>().enabled = false;
         Destroy(GetComponent<Outline>());
         yield return new WaitForSeconds(3);

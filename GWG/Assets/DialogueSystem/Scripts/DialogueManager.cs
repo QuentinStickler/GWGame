@@ -66,6 +66,7 @@ namespace DefaultNamespace
         {
             animator.SetBool("IsOpen", false);
             Cursor.visible = false;
+            GameEvents.OnFinishedDialogue?.Invoke();
         }
     }
 }
