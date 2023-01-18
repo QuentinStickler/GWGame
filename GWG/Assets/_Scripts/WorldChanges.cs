@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class WorldChanges : MonoBehaviour
 {
-    public Light light;
+    public GameObject directionalLight;
+    public GameObject klausLight;
     public Light ghostLight;
-    public Camera camera;
     public GameObject lightBox;
     public Material skybox;
     private void Start()
@@ -19,23 +19,8 @@ public class WorldChanges : MonoBehaviour
     private void SwitchLightMode()
     {
         lightBox.GetComponent<Outline>().eraseRenderer = true;
-        lightBox.layer = 8;
-        
-        camera.backgroundColor = new Color(23,27,50);
-        RenderSettings.skybox = skybox;
-        
-        light.type = LightType.Directional;
-        light.intensity = 1;
+        klausLight.SetActive(false);
+        directionalLight.SetActive(true);
         ghostLight.gameObject.SetActive(false);
-        
-        DynamicGI.UpdateEnvironment(); 
-        camera.backgroundColor = new Color(23,27,50);
-    }
-
-    private void TalkingToGhost()
-    {
-        //Open up the door to the generator if not already open
-        //Trigger Dialoge
-        //Look if riddle has already been completed.
     }
 }
