@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using cakeslice;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -109,7 +110,13 @@ public class PlayerController : MonoBehaviour
     }
     private void Move()
     {
-        controller.Move(direction * speed * Time.deltaTime);
+        if(direction.magnitude > 0)
+        {
+            Vector3 movement = direction * (speed * Time.deltaTime);
+            controller.Move(movement);
+            Quaternion lookRotation = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, 500f * Time.deltaTime);
+        }
     }
 
     private void ApplyGravity()

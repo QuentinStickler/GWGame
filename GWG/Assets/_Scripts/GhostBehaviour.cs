@@ -45,7 +45,7 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
 
     public void DespawnAndDropLoot()
     {
-        Debug.Log(powerGenerator.name);
+        Debug.Log(powerGenerator == null);
         powerGenerator.layer = LayerMask.NameToLayer("Interactable");
         if (!riddleSolved) return;
         ghostText.SetActive(true);
