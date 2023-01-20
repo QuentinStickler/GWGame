@@ -6,12 +6,13 @@ using UnityEngine;
 
 public class InteractwithGame : MonoBehaviour, IInteractable
 {
+    
+    public GameObject miniGame;
     private void Start()
     {
         GameEvents.OnStopInteractingWithMiniGame += DisableGame;
     }
 
-    public GameObject miniGame;
     public void Interact()
     {
         miniGame.SetActive(true);

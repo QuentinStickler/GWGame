@@ -8,6 +8,7 @@ public class LampsBehaviour : MonoBehaviour
     private List<GameObject> lampLight;
     void Start()
     {
+        lampLight = new List<GameObject>();
         foreach (Transform child in transform)
         {
             GameObject grandChild = child.GetChild(0).gameObject;
