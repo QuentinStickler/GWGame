@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1037
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -73,7 +73,7 @@ MonoBehaviour:
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
-  m_LastLoadedLayoutName: zota
+  m_LastLoadedLayoutName: 
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 53519
+  controlID: 17
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 53520
+  controlID: 69
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -3482,9 +3482,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: d24c0600
-      m_LastClickedID: 412882
-      m_ExpandedIDs: e6e1f6ff42faf6ffb010f7ff2838f7ff6c51f7fff074f7ff1883fcffcc18010070190100f61901006c1a0100d01c0100081d0100fc1d01008a170600bc1b060038200600cc2006007a2106007a220600f422060032230600722306003e2406008a250600c025060086270600ce270600e02706009a280600082906000e2906007c290600c82906004c2b0600f24106003a490600324c06006c4d0600
+      m_SelectedIDs: 0c9c0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: b075fdffb4adfdff92aefdff66c3fdfff2dafdffccf9fdff622ffeffce4cfeffce66feff8683feff8ae9feff6e65ffff6aa0ffffd6caffff3cfafffff4ffffffe27700009e7c0000f8ce000006d10000a6d400007853010086550100345601004c580100f05a0100945c010056310200ca3102003032020054320200f63402008adc0200dcdf020072e802009af60200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -3604,7 +3604,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: b8ad0100
     m_LastClickedID: 110008
-    m_ExpandedIDs: ffffffff00000000249a0000269a00002a9a00002e9a000000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000070990000729900007499000076990000789900007a9900007c9900007e9900008099000082990000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3629,21 +3629,21 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 224}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff00000000249a0000269a0000289a00002a9a00002c9a00002e9a0000ac9a0000dc970200e0970200e897020000ca9a3bffffff7f
+    m_ExpandedIDs: ffffffff0000000070990000729900007499000076990000789900007a9900007c9900007e9900008099000082990000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: NikitaScene
-      m_OriginalName: NikitaScene
+      m_Name: QuentinScene
+      m_OriginalName: QuentinScene
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 39578
+      m_UserData: 39948
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -4005,9 +4005,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 31, y: 0.75, z: 10}
+    m_Target: {x: -5.5001106, y: -13.500271, z: 62.001244}
     speed: 2
-    m_Value: {x: 30.999996, y: 0.74999607, z: 9.999994}
+    m_Value: {x: -5.5001106, y: -13.500271, z: 62.001244}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -4054,13 +4054,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.5785987, y: 0.010965979, z: -0.008069854, w: -0.815522}
+    m_Target: {x: 0.19510362, y: 0.37030533, z: -0.07985478, w: 0.90471536}
     speed: 2
-    m_Value: {x: -0.5773638, y: 0.010977864, z: -0.008053242, w: -0.8163735}
+    m_Value: {x: 0.19645278, y: 0.37017068, z: -0.08040708, w: 0.90438646}
   m_Size:
-    m_Target: 18.932152
+    m_Target: 58.991642
     speed: 2
-    m_Value: 18.116892
+    m_Value: 56.451332
   m_Ortho:
     m_Target: 0
     speed: 2

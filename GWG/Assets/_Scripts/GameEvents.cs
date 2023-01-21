@@ -8,6 +8,8 @@ public class GameEvents
     public static Action<bool> OnInteractingWithMiniGame;
     public static Action OnStopInteractingWithMiniGame;
     public static Action OnFoundRightSolutionToGhostGame;
+    public static Action OnFinishedDialogue;
+    public static Action OnPickedUpCollectible;
 }
 
 /*
