@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEditor;
+using UnityEditor.Rendering.BuiltIn.ShaderGraph;
 using UnityEngine;
 
 namespace RoomTransparency
@@ -31,7 +32,7 @@ namespace RoomTransparency
             foreach (var material in wall.transparentMaterial.GetComponent<Renderer>().materials)
             {
                 material.SetBlendMode(Extensions.BlendMode.Transparent);
-                material.SetFloat("_Surface", (float)BaseShaderGUI.SurfaceType.Transparent);
+                material.SetFloat("_Surface", 1f);
                 Extensions.ChangeAlpha(material, 0.15f);
             }
 
