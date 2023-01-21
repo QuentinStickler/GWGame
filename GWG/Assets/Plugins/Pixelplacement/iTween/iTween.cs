@@ -545,9 +545,12 @@ public class iTween : MonoBehaviour
 			args.Add("easetype",EaseType.linear);
 		}
 		
+		int baseColorId = Shader.PropertyToID("_BaseColor");
+
 		//set tempColor and base fromColor:
 		if(target.GetComponent<Renderer>()){
 			tempColor=fromColor=target.GetComponent<Renderer>().material.color;
+			// tempColor=fromColor=target.GetComponent<Renderer>().material.GetColor(baseColorId);
 		}else if(target.GetComponent<Light>()){
 			tempColor=fromColor=target.GetComponent<Light>().color;
 		}
@@ -580,8 +583,10 @@ public class iTween : MonoBehaviour
 		}
 		
 		//apply fromColor:
-		if(target.GetComponent<Renderer>()){
-			target.GetComponent<Renderer>().material.color=fromColor;
+		if(target.GetComponent<Renderer>())
+		{
+			target.GetComponent<Renderer>().material.color = fromColor;
+			// target.GetComponent<Renderer>().material.SetColor(baseColorId, fromColor);
 		}else if(target.GetComponent<Light>()){
 			target.GetComponent<Light>().color=fromColor;
 		}
@@ -4669,7 +4674,10 @@ public class iTween : MonoBehaviour
 		}
 		
 		//init values:
+		int baseColorId = Shader.PropertyToID("_BaseColor");
+		
 		if(target.GetComponent<Renderer>()){
+			// colors[0] = colors[1] = target.GetComponent<Renderer>().material.GetColor(baseColorId);
 			colors[0] = colors[1] = target.GetComponent<Renderer>().material.color;
 		}else if(target.GetComponent<Light>()){
 			colors[0] = colors[1] = target.GetComponent<Light>().color;	
@@ -4701,7 +4709,8 @@ public class iTween : MonoBehaviour
 				
 		//apply:
 		if(target.GetComponent<Renderer>()){
-			target.GetComponent<Renderer>().material.color=colors[3];
+			// target.GetComponent<Renderer>().material.SetColor(baseColorId, colors[3]);
+			target.GetComponent<Renderer>().material.color = colors[3];
 		}else if(target.GetComponent<Light>()){
 			target.GetComponent<Light>().color=colors[3];	
 		}
@@ -6438,7 +6447,6 @@ public class iTween : MonoBehaviour
 		}
 		if(!args.Contains("target")){
 			args["target"] = target;
-		
 		}		
 
 		tweens.Insert (0, args);

@@ -62,7 +62,8 @@ public class RoomManager : MonoBehaviour
         
         foreach (var obj in fade)
         {
-            TransparencyManager.Instance.StartFadeOut(obj, 0,_fadeOutTime);
+            // TransparencyManager.Instance.StartFadeOut(obj, 0,_fadeOutTime);
+            TransparencyManager.Instance.StartFade(obj, 0,_fadeOutTime);
         }
     }
 
@@ -72,7 +73,8 @@ public class RoomManager : MonoBehaviour
             .Where(e => ((1 << e.layer) & TransparencyManager.Instance.EnvironmentMask) > 0);
         foreach (var obj in children)
         {
-            TransparencyManager.Instance.StartFadeIn(obj, _fadeInTime);
+            // TransparencyManager.Instance.StartFadeIn(obj, _fadeInTime);
+            TransparencyManager.Instance.StartFade(obj, 1, _fadeInTime, false, true);
         }
     }
 

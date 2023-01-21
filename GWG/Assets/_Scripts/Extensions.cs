@@ -35,45 +35,78 @@ public static class Extensions
         Transparent
     }
     
+    // public static void SetBlendMode(this Material material, BlendMode blendMode)
+    // {
+    //     switch (blendMode)
+    //     {
+    //         case BlendMode.Opaque:
+    //             material.SetFloat("_Mode", 0);
+    //             material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+    //             material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+    //             material.SetInt("_ZWrite", 1);
+    //             material.DisableKeyword("_ALPHATEST_ON");
+    //             material.DisableKeyword("_ALPHABLEND_ON");
+    //             material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+    //             material.renderQueue = -1;
+    //             break;
+    //         case BlendMode.Cutout:
+    //             material.SetFloat("_Mode", 1);
+    //             material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+    //             material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+    //             material.SetInt("_ZWrite", 1);
+    //             material.EnableKeyword("_ALPHATEST_ON");
+    //             material.DisableKeyword("_ALPHABLEND_ON");
+    //             material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+    //             material.renderQueue = 2450;
+    //             break;
+    //         case BlendMode.Fade:
+    //             material.SetFloat("_Mode", 2);
+    //             material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+    //             material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+    //             material.SetInt("_ZWrite", 0);
+    //             material.DisableKeyword("_ALPHATEST_ON");
+    //             material.EnableKeyword("_ALPHABLEND_ON");
+    //             material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+    //             material.renderQueue = 3000;
+    //             break;
+    //         case BlendMode.Transparent:
+    //             material.SetFloat("_Mode", 3);
+    //             material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+    //             material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+    //             material.SetInt("_ZWrite", 0);
+    //             material.DisableKeyword("_ALPHATEST_ON");
+    //             material.DisableKeyword("_ALPHABLEND_ON");
+    //             material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+    //             material.renderQueue = 3000;
+    //             break;
+    //     }
+
     public static void SetBlendMode(this Material material, BlendMode blendMode)
     {
         switch (blendMode)
         {
             case BlendMode.Opaque:
+                material.SetFloat("_Surface", 0); // set the surface type to Opaque
+                // material.SetFloat("_Blend", 0); // disable blending
                 material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
                 material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-                material.SetInt("_ZWrite", 1);
+                material.SetFloat("_ZWrite", 1); // enable Z-writing
                 material.DisableKeyword("_ALPHATEST_ON");
                 material.DisableKeyword("_ALPHABLEND_ON");
                 material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                material.renderQueue = -1;
-                break;
-            case BlendMode.Cutout:
-                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-                material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-                material.SetInt("_ZWrite", 1);
-                material.EnableKeyword("_ALPHATEST_ON");
-                material.DisableKeyword("_ALPHABLEND_ON");
-                material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                material.renderQueue = 2450;
-                break;
-            case BlendMode.Fade:
-                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-                material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                material.SetInt("_ZWrite", 0);
-                material.DisableKeyword("_ALPHATEST_ON");
-                material.EnableKeyword("_ALPHABLEND_ON");
-                material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-                material.renderQueue = 3000;
+                material.renderQueue = -1; // use the default render queue
                 break;
             case BlendMode.Transparent:
-                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                material.SetFloat("_Surface", 1); // set the surface type to Transparent
+                material.SetFloat("_Blend", 0); // enable blending
+                // material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
                 material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                material.SetInt("_ZWrite", 0);
+                material.SetFloat("_ZWrite", 0); // disable Z-writing
                 material.DisableKeyword("_ALPHATEST_ON");
                 material.DisableKeyword("_ALPHABLEND_ON");
                 material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
-                material.renderQueue = 3000;
+                material.renderQueue = 3000; // set the render queue to 3000
                 break;
         }
     }

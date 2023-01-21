@@ -42,7 +42,8 @@ public class OcclusionHandler : MonoBehaviour
         {
             foreach (var child in obj.GetAllChildren(true))
             {
-                TransparencyManager.Instance.StartFadeOut(child, _fadeOutOpacity,_fadeOutTime);
+                // TransparencyManager.Instance.StartFadeOut(child, _fadeOutOpacity,_fadeOutTime);
+                TransparencyManager.Instance.StartFade(child, _fadeOutOpacity, _fadeOutTime, true);
             }
         }
 
@@ -50,7 +51,8 @@ public class OcclusionHandler : MonoBehaviour
         {
             foreach (var child in obj.GetAllChildren(true))
             {
-                TransparencyManager.Instance.StartFadeIn(child, _fadeInTime);
+                // TransparencyManager.Instance.StartFadeIn(child, _fadeInTime);
+                TransparencyManager.Instance.StartFade(child, 1, _fadeInTime);
             }
         }
 
