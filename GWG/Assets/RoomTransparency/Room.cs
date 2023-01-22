@@ -5,9 +5,9 @@ namespace RoomTransparency
 {
     public class Room : MonoBehaviour
     {
-        public event Action<Room> onRoomEnter;
         public bool initialState = false;
         private bool initialized;
+        private bool visible;
 
         private void Update()
         {
@@ -16,27 +16,51 @@ namespace RoomTransparency
             initialized = true;
         }
 
-        private void OnTriggerEnter(Collider other)
+        public bool isVisible()
         {
-            if (!other.GetComponent<PlayerController>())
-                return;
-            onRoomEnter?.Invoke(this);
+            return visible;
         }
 
         public void showRoom(bool val)
         {
-            Debug.Log("Room: "+val);
-            foreach (var child in Extensions.GetAllChildren(gameObject, false))
+            visible = val;
+            recursivelyHide(gameObject, val);
+        }
+
+        private void recursivelyHide(GameObject objectToHide, bool val)
+        {
+            if (objectToHide.TryGetComponent<HideableWall>(out var wall))
             {
-                if (child.TryGetComponent<HideableWall>(out var wall))
-                {
-                    wall.enable(val);
-                }
-                else if (child.TryGetComponent<Renderer>(out var renderer))
-                {
-                    renderer.enabled = val;
-                }
+                wall.enable(val);
+                return;
             }
+
+            if (objectToHide.TryGetComponent<MeshRenderer>(out var renderer))
+
+                renderer.enabled = val;
+
+
+            foreach (Transform child in objectToHide.transform)
+            {
+                recursivelyHide(child.gameObject, val);
+            }
+        }
+
+        private bool hide(GameObject objectToHide, bool val)
+        {
+            if (objectToHide.TryGetComponent<HideableWall>(out var wall))
+            {
+                wall.enable(val);
+                return true;
+            }
+
+            if (objectToHide.TryGetComponent<MeshRenderer>(out var renderer))
+            {
+                renderer.enabled = val;
+                return true;
+            }
+
+            return false;
         }
     }
 }
