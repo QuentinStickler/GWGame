@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/NikitaScene.unity
-    guid: 0ce0be253c71e9242ad3fb677cea8c86
+    path: Assets/Scenes/FirstFloor.unity
+    guid: 2b89656fdbf5a814db19041ce950c098
   - enabled: 1
     path: Assets/Scenes/QuentinScene.unity
     guid: fdadbe15dcf9e3142b61924c1583ce98
@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Outdoor Bereich.unity
     guid: b945aa2626a8a5a419ef722eeb2cc264
   - enabled: 1
-    path: Assets/Scenes/NikitaScene 1.unity
-    guid: 87a71e66219d5fa4d8ae878d58c276e6
+    path: Assets/Scenes/SecondFloor.unity
+    guid: dc32c7094c10ccb45ac936fc8c70ce30
   m_configObjects: {}

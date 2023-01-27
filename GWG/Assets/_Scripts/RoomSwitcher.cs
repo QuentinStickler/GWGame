@@ -9,6 +9,8 @@ public class RoomSwitcher : MonoBehaviour
     public int sceneIndex;
     private void OnTriggerEnter(Collider other)
     {
+        if(other.GetComponent<PlayerController>() == null)
+            return;
         SceneManager.LoadScene(sceneIndex);
     }
 }
