@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33723307204434158}
   - component: {fileID: 23317963595796552}
   - component: {fileID: 2483563890811459705}
-  - component: {fileID: 3513282575805397689}
   m_Layer: 0
   m_Name: locker_4
   m_TagString: Untagged
@@ -99,15 +98,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 40ec2e2d4a4457448aef97450f4f9113, type: 3}
---- !u!114 &3513282575805397689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1537529156563862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b56c834203149629cd3685bbf611e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
