@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GhostBehaviour : MonoBehaviour, IInteractable
@@ -18,6 +19,8 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
     public GameObject questImage;
 
     private GameObject powerGenerator;
+    public GameObject schoolRepairedPercentage;
+    private WorldVariables worldVariables;
 
     private void Start()
     {
@@ -25,6 +28,7 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
         GameEvents.OnFinishedDialogue += DespawnAndDropLoot;
         startingPos = transform.position;
         powerGenerator = GameObject.Find("PowerGenerator");
+        worldVariables = GameObject.Find("WorldVariables").GetComponent<WorldVariables>();
     }
 
     void Update()
@@ -50,7 +54,7 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
         Debug.Log(powerGenerator == null);
         powerGenerator.layer = LayerMask.NameToLayer("Interactable");
         if (!riddleSolved) return;
-        ghostText.SetActive(true);
+        ghostText.SetActive(true);  
         StartCoroutine(DeactivateText());
     }
 
@@ -61,6 +65,9 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
         boardText.SetActive(true);
         questText.SetActive(false);
         questImage.SetActive(false);
+        int currentRepairedStatus = worldVariables.schoolRepaired + 25;
+        schoolRepairedPercentage.GetComponent<TextMeshProUGUI>().text = currentRepairedStatus + " %";
+        worldVariables.schoolRepaired += 25;
         Destroy(gameObject);
     }
     private void UpdateDialogue()
