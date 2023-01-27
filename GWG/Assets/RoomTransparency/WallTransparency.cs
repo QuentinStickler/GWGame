@@ -7,8 +7,10 @@ using UnityEngine;
 public class WallTransparency : MonoBehaviour
 {
     public Camera activeCamera;
-    private List<HideableWall> currentlyInWay = new List<HideableWall>();
-    private List<HideableWall> currentlyTransparent = new List<HideableWall>();
+    public event Action<Room> onRoomEnter;
+    private List<Hideable> currentlyInWay = new List<Hideable>();
+    private List<Hideable> currentlyTransparent = new List<Hideable>();
+    private Room currentRoom;
 
     // Update is called once per frame
     void Update()
@@ -16,6 +18,28 @@ public class WallTransparency : MonoBehaviour
         collectObjectsInWay(true);
         makeWallsSolid();
         makeWallsTransparent();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!other.gameObject.TryGetComponent<Room>(out var newRoom) || newRoom.Equals(currentRoom))
+            return;
+        if (currentRoom != null && currentRoom.isVisible())
+            currentRoom.showRoom(false);
+
+        newRoom.showRoom(true);
+        currentRoom = newRoom;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.gameObject.TryGetComponent<Room>(out var newRoom) || newRoom.Equals(currentRoom))
+            return;
+        if (currentRoom != null && currentRoom.isVisible())
+            currentRoom.showRoom(false);
+
+        newRoom.showRoom(true);
+        currentRoom = newRoom;
     }
 
     private void collectObjectsInWay(bool useBackwardRay)
@@ -33,9 +57,9 @@ public class WallTransparency : MonoBehaviour
 
         var forwardHitArray = Physics.RaycastAll(forwardRay, camDistanceToPlayer);
         var backwardHitArray = Physics.RaycastAll(backwardRay, camDistanceToPlayer);
-        
+
         Debug.DrawRay(cameraPos, playerTransform.position - cameraPos, Color.red, Time.deltaTime);
-        
+
 
         addWalls(forwardHitArray);
         addWalls(backwardHitArray);
@@ -45,10 +69,11 @@ public class WallTransparency : MonoBehaviour
     {
         foreach (var raycastHit in array)
         {
-            if (raycastHit.collider.transform.parent && raycastHit.collider.transform.parent.gameObject.TryGetComponent(out HideableWall wall))
+            if (raycastHit.collider.transform.parent &&
+                raycastHit.collider.transform.parent.gameObject.TryGetComponent(out Hideable hideable))
             {
-                if (!currentlyInWay.Contains(wall))
-                    currentlyInWay.Add(wall);
+                if (!currentlyInWay.Contains(hideable))
+                    currentlyInWay.Add(hideable);
             }
         }
     }

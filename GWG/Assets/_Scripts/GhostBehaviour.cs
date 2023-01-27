@@ -14,6 +14,8 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
     public DialogueTrigger dialogueTeller2;
     public GameObject boardText;
     public GameObject ghostText;
+    public GameObject questText;
+    public GameObject questImage;
 
     private GameObject powerGenerator;
 
@@ -57,6 +59,8 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
         yield return new WaitForSeconds(5f);
         ghostText.SetActive(false);
         boardText.SetActive(true);
+        questText.SetActive(false);
+        questImage.SetActive(false);
         Destroy(gameObject);
     }
     private void UpdateDialogue()

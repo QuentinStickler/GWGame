@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
@@ -5,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CollectibleWindow : EditorWindow
 {
    public GameObject collectibleObject;
+   public GameObject UI;
    [MenuItem("Window/Collectible")]
 
    public static void ShowWindow()
@@ -16,18 +18,22 @@ public class CollectibleWindow : EditorWindow
    {
       GUILayout.Label("Create a collectible", EditorStyles.boldLabel);
       collectibleObject = (GameObject)EditorGUILayout.ObjectField("Collectible", collectibleObject, typeof(GameObject),false);
+      UI = (GameObject)EditorGUILayout.ObjectField("UI", UI, typeof(GameObject),false);
       int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
       Color sceneColor = new Color();
       switch (currentSceneIndex)
       {
-         case 0:
+         case 1:
             sceneColor = Color.magenta;
             break;
-         case 1:
+         case 2:
+            sceneColor = Color.green;
+            break;
+         case 3:
             sceneColor = Color.yellow;
             break;
-         case 2:
-            sceneColor = Color.blue;
+         case 4:
+            sceneColor = Color.red;
             break;
       }
       GUILayout.Label(currentSceneIndex.ToString(), EditorStyles.boldLabel);
@@ -35,8 +41,22 @@ public class CollectibleWindow : EditorWindow
 
       if (GUILayout.Button("Instantiate Collectible"))
       {
-         GameObject instantiatedObject = Instantiate(collectibleObject, new Vector3(0, 0, 0), Quaternion.identity);
+         GameObject parentObject = GameObject.Find("CollectibleParent");
+         if (parentObject is null)
+            parentObject = new GameObject("CollectibleParent");
+         GameObject UIObject = GameObject.Find("UI");
+         if (UIObject is null)
+         {
+            UIObject = Instantiate(UI);
+            UIObject.name = "UI";
+         }
+         GameObject collectibleText = UIObject.transform.GetChild(1).gameObject;
+         Debug.Log(collectibleText.GetComponent<TextMeshProUGUI>());
+         collectibleText.GetComponent<TextMeshProUGUI>().color = sceneColor;
+         GameObject instantiatedObject = Instantiate(collectibleObject, new Vector3(0, 0, 0), Quaternion.identity,parentObject.transform);
          instantiatedObject.AddComponent<CollectibleBehaviour>();
+         instantiatedObject.GetComponent<CollectibleBehaviour>().collectibleText =
+            collectibleText;
       }
    }
 }
