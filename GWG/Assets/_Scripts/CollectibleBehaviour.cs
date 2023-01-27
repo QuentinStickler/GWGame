@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Outline = cakeslice.Outline;
@@ -14,10 +15,12 @@ public class CollectibleBehaviour : MonoBehaviour, IInteractable
     private Vector3 startingPos;
 
     public GameObject collectibleText;
+    private GameObject collectibleNumber;
 
     private void Start()
     {
         startingPos = transform.position;
+        collectibleNumber = GameObject.Find("CollectiblesNumber");
     }
 
     void Update()
@@ -34,6 +37,7 @@ public class CollectibleBehaviour : MonoBehaviour, IInteractable
     IEnumerator DestroyText()
     {
         collectibleText.SetActive(true);
+        collectibleNumber.GetComponent<TextMeshProUGUI>().text = (int.Parse(collectibleNumber.GetComponent<TMP_InputField>().text) + 1).ToString();
         GameEvents.OnPickedUpCollectible?.Invoke();
         GetComponent<MeshRenderer>().enabled = false;
         Destroy(GetComponent<Outline>());
