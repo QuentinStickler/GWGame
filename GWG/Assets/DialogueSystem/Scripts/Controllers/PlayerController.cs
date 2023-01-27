@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private InputAction hideUi;
     private InputAction scan;
 
-    private GameObject ui;
+    public GameObject ui;
 
     private void Awake()
     {
@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
         canMove = true;
         isInGame = false;
         Cursor.visible = false;
-        ui = GameObject.Find("UI");
     }
 
     public void DisableMovement(bool isPlaying)
