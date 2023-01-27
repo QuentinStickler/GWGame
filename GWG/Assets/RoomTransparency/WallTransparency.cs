@@ -35,6 +35,7 @@ public class WallTransparency : MonoBehaviour
         var backwardHitArray = Physics.RaycastAll(backwardRay, camDistanceToPlayer);
         
         Debug.DrawRay(cameraPos, playerTransform.position - cameraPos, Color.red, Time.deltaTime);
+        
 
         addWalls(forwardHitArray);
         addWalls(backwardHitArray);
