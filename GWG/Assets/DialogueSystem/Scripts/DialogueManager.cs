@@ -20,6 +20,8 @@ namespace DefaultNamespace
         private GameObject currentDialogPartner;
         private GameObject ui;
 
+        private Dialogue currentActiveDialogue;
+
         // Use this for initialization
         void Start()
         {
@@ -37,12 +39,14 @@ namespace DefaultNamespace
 
             var dialogPartnerPos = currentDialogPartner.transform.position;
             dialogPartnerPos.y = klausKreis.transform.position.y;
-            
+
             klausKreis.transform.LookAt(dialogPartnerPos);
             shoulderCam.SetActive(true);
 
             sentences.Clear();
             Cursor.visible = true;
+
+            currentActiveDialogue = dialogue;
 
             foreach (var dialogueSentence in dialogue.sentences)
             {
@@ -82,7 +86,7 @@ namespace DefaultNamespace
         {
             animator.SetBool("IsOpen", false);
             Cursor.visible = false;
-            GameEvents.OnFinishedDialogue?.Invoke();
+            GameEvents.OnFinishedDialogue?.Invoke(currentActiveDialogue);
             shoulderCam.SetActive(false);
             currentDialogPartner.transform.rotation = dialogPartnerRot;
             ui.SetActive(true);

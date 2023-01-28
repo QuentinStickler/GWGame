@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         GameEvents.OnInteractingWithMiniGame += DisableMovement;
-        GameEvents.OnFinishedDialogue += () => isInGame = false;
+        GameEvents.OnFinishedDialogue += (dialogue) => isInGame = false;
         GameEvents.OnPickedUpCollectible += () => isInGame = false;
         
         controller = GetComponent<CharacterController>();

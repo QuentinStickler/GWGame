@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 
@@ -47,7 +48,7 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
         }
     }
 
-    public void DespawnAndDropLoot()
+    public void DespawnAndDropLoot(Dialogue dialogue)
     {
         Debug.Log(powerGenerator == null);
         powerGenerator.layer = LayerMask.NameToLayer("Interactable");
