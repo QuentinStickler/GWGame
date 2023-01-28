@@ -16,13 +16,12 @@ public class CollectibleBehaviour : MonoBehaviour, IInteractable
 
     public GameObject collectibleText;
     private GameObject collectibleNumber;
-    private WorldVariables worldVariables;
 
     private void Start()
     {
         startingPos = transform.position;
         collectibleNumber = GameObject.Find("CollectiblesFoundNumber");
-        worldVariables = GameObject.Find("WorldVariables").GetComponent<WorldVariables>();
+        collectibleNumber.GetComponent<TextMeshProUGUI>().text = WorldVariables.GetCurrentlyCollectedNumber() + "/5";
     }
 
     void Update()
@@ -40,9 +39,9 @@ public class CollectibleBehaviour : MonoBehaviour, IInteractable
     {
         collectibleText.SetActive(true);
         GameEvents.OnPickedUpCollectible?.Invoke();
-        int currentlyCollectedNumber = worldVariables.currentlyCollectedNumber + 1;
+        int currentlyCollectedNumber = WorldVariables.GetCurrentlyCollectedNumber() + 1;
         collectibleNumber.GetComponent<TextMeshProUGUI>().text = currentlyCollectedNumber + "/5";
-        worldVariables.currentlyCollectedNumber += 1;
+        WorldVariables.SetCurrentlyCollected(1);
         GetComponent<MeshRenderer>().enabled = false;
         Destroy(GetComponent<Outline>());
         yield return new WaitForSeconds(3);

@@ -18,15 +18,18 @@ namespace DefaultNamespace
         private Queue<SpokenWord> sentences;
         private Quaternion dialogPartnerRot;
         private GameObject currentDialogPartner;
+        private GameObject ui;
 
         // Use this for initialization
         void Start()
         {
             sentences = new Queue<SpokenWord>();
+            ui = GameObject.Find("UI");
         }
 
         public void StartDialogue(Dialogue dialogue, DialogueTrigger trigger)
         {
+            ui.SetActive(false);
             currentDialogPartner = trigger.transform.parent.gameObject;
             animator.SetBool("IsOpen", true);
             dialogPartnerRot = currentDialogPartner.transform.rotation;
@@ -82,6 +85,7 @@ namespace DefaultNamespace
             GameEvents.OnFinishedDialogue?.Invoke();
             shoulderCam.SetActive(false);
             currentDialogPartner.transform.rotation = dialogPartnerRot;
+            ui.SetActive(true);
         }
     }
 }

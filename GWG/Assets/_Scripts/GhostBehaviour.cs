@@ -20,7 +20,6 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
 
     private GameObject powerGenerator;
     public GameObject schoolRepairedPercentage;
-    private WorldVariables worldVariables;
 
     private void Start()
     {
@@ -28,7 +27,6 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
         GameEvents.OnFinishedDialogue += DespawnAndDropLoot;
         startingPos = transform.position;
         powerGenerator = GameObject.Find("PowerGenerator");
-        worldVariables = GameObject.Find("WorldVariables").GetComponent<WorldVariables>();
     }
 
     void Update()
@@ -65,9 +63,9 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
         boardText.SetActive(true);
         questText.SetActive(false);
         questImage.SetActive(false);
-        int currentRepairedStatus = worldVariables.schoolRepaired + 25;
+        int currentRepairedStatus = WorldVariables.GetSchoolRepairStatus() + 50;
         schoolRepairedPercentage.GetComponent<TextMeshProUGUI>().text = currentRepairedStatus + " %";
-        worldVariables.schoolRepaired += 25;
+        WorldVariables.SetRepairStatus(50);
         Destroy(gameObject);
     }
     private void UpdateDialogue()

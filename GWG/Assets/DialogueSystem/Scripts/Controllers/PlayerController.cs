@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using cakeslice;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private InputAction scan;
 
     private GameObject ui;
+    private GameObject schoolRepairNumber;
 
     private void Awake()
     {
@@ -54,6 +56,12 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Scanning");
     }
+
+    private void OnApplicationQuit()
+    {
+        WorldVariables.ResetStats();
+    }
+
     private void Start()
     {
         GameEvents.OnInteractingWithMiniGame += DisableMovement;
@@ -65,6 +73,8 @@ public class PlayerController : MonoBehaviour
         isInGame = false;
         Cursor.visible = false;
         ui = GameObject.Find("UI");
+        schoolRepairNumber = GameObject.Find("SchoolRepairedNumber");
+        schoolRepairNumber.GetComponent<TextMeshProUGUI>().text = WorldVariables.GetSchoolRepairStatus() + " %";
     }
 
     public void DisableMovement(bool isPlaying)
