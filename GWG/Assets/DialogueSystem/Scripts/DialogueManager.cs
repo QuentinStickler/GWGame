@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,7 +16,7 @@ namespace DefaultNamespace
 
         public Animator animator;
 
-        private Queue<SpokenWord> sentences;
+        private Queue<SpokenWord> sentences = new Queue<SpokenWord>();
         private Quaternion dialogPartnerRot;
         private GameObject currentDialogPartner;
         private GameObject ui;
@@ -23,27 +24,31 @@ namespace DefaultNamespace
         private Dialogue currentActiveDialogue;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
-            sentences = new Queue<SpokenWord>();
             ui = GameObject.Find("UI");
         }
 
         public void StartDialogue(Dialogue dialogue, DialogueTrigger trigger)
         {
-            ui.SetActive(false);
-            currentDialogPartner = trigger.transform.parent.gameObject;
+            Debug.Log("Starting Dialogue");
+            //ui.SetActive(false);
             animator.SetBool("IsOpen", true);
-            dialogPartnerRot = currentDialogPartner.transform.rotation;
-            trigger.transform.parent.LookAt(klausKreis.transform);
+            if (trigger != null)
+            {
+                currentDialogPartner = trigger.transform.parent.gameObject;
+                dialogPartnerRot = currentDialogPartner.transform.rotation;
+                trigger.transform.parent.LookAt(klausKreis.transform);
 
-            var dialogPartnerPos = currentDialogPartner.transform.position;
-            dialogPartnerPos.y = klausKreis.transform.position.y;
+                var dialogPartnerPos = currentDialogPartner.transform.position;
+                dialogPartnerPos.y = klausKreis.transform.position.y;
 
-            klausKreis.transform.LookAt(dialogPartnerPos);
-            shoulderCam.SetActive(true);
+                klausKreis.transform.LookAt(dialogPartnerPos);
+                shoulderCam.SetActive(true);
+            }
 
-            sentences.Clear();
+            if (sentences != null)
+                sentences.Clear();
             Cursor.visible = true;
 
             currentActiveDialogue = dialogue;
@@ -84,11 +89,14 @@ namespace DefaultNamespace
 
         void EndDialogue()
         {
+            Debug.Log("Ending Dialogue");
             animator.SetBool("IsOpen", false);
             Cursor.visible = false;
             GameEvents.OnFinishedDialogue?.Invoke(currentActiveDialogue);
-            shoulderCam.SetActive(false);
-            currentDialogPartner.transform.rotation = dialogPartnerRot;
+            if (shoulderCam)
+                shoulderCam.SetActive(false);
+            if (currentDialogPartner)
+                currentDialogPartner.transform.rotation = dialogPartnerRot;
             ui.SetActive(true);
         }
     }

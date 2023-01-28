@@ -7,10 +7,6 @@ public class HideMouse : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-    }
-    
-    private void Start()
-    {
         Cursor.visible = false;
     }
 
