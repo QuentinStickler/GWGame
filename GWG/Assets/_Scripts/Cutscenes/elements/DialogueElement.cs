@@ -9,7 +9,7 @@ namespace _Scripts.Cutscenes
     public class DialogueElement : CutSceneElement
     {
         public Dialogue dialogue;
-        public Camera dialogueCamera;
+        public GameObject dialogueCamera;
 
         protected override void onStartElement(MonoBehaviour monoBehaviour, DialogueManager dialogueManager)
         {
@@ -18,13 +18,13 @@ namespace _Scripts.Cutscenes
             dialogueManager.StartDialogue(dialogue, null);
             Debug.Log("Starting Dialogue");
             if (dialogueCamera != null)
-                dialogueCamera.enabled = true;
+                dialogueCamera.SetActive(true);
         }
 
         protected override void onEndElement()
         {
             if (dialogueCamera != null)
-                dialogueCamera.enabled = false;
+                dialogueCamera.SetActive(false);
             
         }
 
