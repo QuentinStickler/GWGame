@@ -32,7 +32,7 @@ namespace DefaultNamespace
         public void StartDialogue(Dialogue dialogue, DialogueTrigger trigger)
         {
             Debug.Log("Starting Dialogue");
-            //ui.SetActive(false);
+            ui.SetActive(false);
             animator.SetBool("IsOpen", true);
             if (trigger != null)
             {
@@ -97,7 +97,8 @@ namespace DefaultNamespace
                 shoulderCam.SetActive(false);
             if (currentDialogPartner)
                 currentDialogPartner.transform.rotation = dialogPartnerRot;
-            ui.SetActive(true);
+            if(WorldVariables.isInCutscene == false)
+                ui.SetActive(true);
         }
     }
 }

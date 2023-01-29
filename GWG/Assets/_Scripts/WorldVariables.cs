@@ -7,6 +7,7 @@ public static class WorldVariables
 {
    public static int currentlyCollectedNumber = 0;
    public static int schoolRepaired = 0;
+   public static bool isInCutscene;
 
    public static int GetCurrentlyCollectedNumber()
    {
