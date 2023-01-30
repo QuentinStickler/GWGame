@@ -17,7 +17,6 @@ public class Cutscene : MonoBehaviour
     {
         dialogueUI = GameObject.Find("Dialogue - UI").GetComponent<CinematicBars>();
         ui = GameObject.Find("UI");
-        ui.SetActive(false);
         WorldVariables.isInCutscene = true;
         startCutScene();
         if (!dialogueManager)
@@ -26,6 +25,10 @@ public class Cutscene : MonoBehaviour
 
     public void startCutScene()
     {
+        if (!WorldVariables.startOfGame)
+            return;
+        ui.SetActive(false);
+        Debug.Log(WorldVariables.startOfGame);
         Debug.Log("Running Cutscene");
         dialogueUI.Show(200,.3f);
         if (!_playerController)
@@ -57,6 +60,7 @@ public class Cutscene : MonoBehaviour
         _playerController.enabled = true;
         dialogueUI.Hide(.3f);
         WorldVariables.isInCutscene = false;
+        WorldVariables.startOfGame = false;
         ui.SetActive(true);
         Debug.Log("Cutscene done");
     }

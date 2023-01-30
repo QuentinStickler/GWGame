@@ -9,11 +9,10 @@ public class LampsBehaviour : MonoBehaviour
     void Start()
     {
         lampLight = new List<GameObject>();
-        foreach (Transform child in transform)
+        foreach(GameObject lamp in GameObject.FindGameObjectsWithTag("Lamp"))
         {
-            GameObject grandChild = child.GetChild(0).gameObject;
-            lampLight.Add(grandChild);
-            grandChild.SetActive(false);
+            lampLight.Add(lamp);
+            lamp.SetActive(false);
         }
 
         GameEvents.OnFoundRightSolutionToGhostGame += () => StartCoroutine(ActivateLights());
