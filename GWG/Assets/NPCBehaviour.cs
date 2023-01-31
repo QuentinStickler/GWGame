@@ -8,6 +8,7 @@ public class NPCBehaviour : MonoBehaviour, IInteractable
 {
     public DialogueTrigger dialogueTrigger;
 
+
     public void Interact()
     {
         dialogueTrigger.TriggerDialogue();
