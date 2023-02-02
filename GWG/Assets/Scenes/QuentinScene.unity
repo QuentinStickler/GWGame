@@ -23768,7 +23768,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'W,A,S,D - Move
+  m_text: 'W,A,S,D - MOVE
 
     H - HIDE UI
 
