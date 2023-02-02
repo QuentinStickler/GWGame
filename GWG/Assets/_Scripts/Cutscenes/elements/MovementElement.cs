@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Scripts.Cutscenes
@@ -31,20 +32,36 @@ namespace _Scripts.Cutscenes
                 hasMultiObjectMovementFinished = true;
                 foreach (var singleObjectMovement in multiObjectMovement.movements)
                 {
+                    if(singleObjectMovement.hasFinishedMovement)
+                        continue;
 
                     var currentPos = singleObjectMovement.objectToMove.position;
                     var targetPos = singleObjectMovement.locationToMoveTo.position;
 
                     var distanceToGoal = targetPos - currentPos;
                     distanceToGoal.y = 0;
+                    
+                    // Debug.Log("CURRENT POS: " + singleObjectMovement.objectToMove.position);
+                    // Debug.Log("TARGET POS: " + singleObjectMovement.locationToMoveTo.position);
+                    // Debug.Log("DIRECTION : " + distanceToGoal.normalized);
                         
                     var speed = singleObjectMovement.movementSpeed;
 
-                    singleObjectMovement.objectToMove.Translate((speed * Time.deltaTime * distanceToGoal.normalized));
-                    if (distanceToGoal.magnitude >= 0.1)
-                        hasMultiObjectMovementFinished = false;
+                    // singleObjectMovement.objectToMove.Translate(speed * Time.deltaTime * distanceToGoal.normalized);
+                    singleObjectMovement.objectToMove.position = currentPos + (speed * Time.deltaTime * distanceToGoal.normalized);
+
+                    if (distanceToGoal.magnitude <= 0.1f)
+                    {
+                        singleObjectMovement.objectToMove.position = targetPos;
+                        singleObjectMovement.hasFinishedMovement = true;
+                    }
+
+                    hasMultiObjectMovementFinished &= singleObjectMovement.hasFinishedMovement;
+                    
+                    // if (distanceToGoal.magnitude >= 0.1f)
+                        // hasMultiObjectMovementFinished = false;
                 }
-                yield return new WaitForEndOfFrame();
+                yield return null;
             }
             onEndElement();
         }
@@ -63,5 +80,6 @@ namespace _Scripts.Cutscenes
         public Transform objectToMove;
         public Transform locationToMoveTo;
         public float movementSpeed;
+        public bool hasFinishedMovement = false;
     }
 }

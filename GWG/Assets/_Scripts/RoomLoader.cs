@@ -7,8 +7,11 @@ using UnityEngine.SceneManagement;
 public class RoomLoader : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    [SerializeField] private Transform camera;
     [SerializeField] private Transform stairsPosition;
+    [SerializeField] private Transform stairsCameraPosition;
     [SerializeField] private Transform parkPosition;
+    [SerializeField] private Transform parkCameraPosition;
      
     private void OnEnable()
     {
@@ -20,6 +23,12 @@ public class RoomLoader : MonoBehaviour
         SceneManager.sceneLoaded -= SceneLoaded;
     }
 
+    // private void Awake()
+    // {
+    //     player = GameObject.Find("KlausKreis").transform;
+    //     camera = Camera.main.transform;
+    // }
+
     private void SceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex == 1)
@@ -27,12 +36,14 @@ public class RoomLoader : MonoBehaviour
             if (SceneTracker.Instance.GetPreviousScene() == 2 || SceneTracker.Instance.GetPreviousScene() == 3)
             {
                 player.position = stairsPosition.position;
+                camera.position = stairsCameraPosition.position;
                 return;
             }
             
             if (SceneTracker.Instance.GetPreviousScene() == 4)
             {
                 player.position = parkPosition.position;
+                camera.position = parkCameraPosition.position;
             }
         }
     }

@@ -8,7 +8,6 @@ public class NPCBehaviour : MonoBehaviour, IInteractable
 {
     public DialogueTrigger dialogueTrigger;
 
-
     public void Interact()
     {
         dialogueTrigger.TriggerDialogue();
@@ -17,5 +16,10 @@ public class NPCBehaviour : MonoBehaviour, IInteractable
     public void Glow()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void SetDialogueTrigger(DialogueTrigger trigger)
+    {
+        dialogueTrigger = trigger;
     }
 }

@@ -143,6 +143,10 @@ public class PlayerController : MonoBehaviour
         Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
         return result;
     }
-    
-    
+
+    public void ExitGame()
+    {
+        canMove = true;
+        isInGame = false;
+    }
 }

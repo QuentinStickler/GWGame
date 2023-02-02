@@ -19,7 +19,17 @@ public class CollectibleBehaviour : MonoBehaviour, IInteractable
 
     private void Start()
     {
+        Initialize();
+        InitializeCollectable();
+    }
+
+    protected void Initialize()
+    {
         startingPos = transform.position;
+    }
+
+    protected void InitializeCollectable()
+    {
         collectibleNumber = GameObject.Find("CollectiblesFoundNumber");
         collectibleNumber.GetComponent<TextMeshProUGUI>().text = WorldVariables.GetCurrentlyCollectedNumber() + "/5";
     }
@@ -35,7 +45,7 @@ public class CollectibleBehaviour : MonoBehaviour, IInteractable
         StartCoroutine(DestroyText());
     }
 
-    IEnumerator DestroyText()
+    protected virtual IEnumerator DestroyText()
     {
         collectibleText.SetActive(true);
         GameEvents.OnPickedUpCollectible?.Invoke();

@@ -8,25 +8,32 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CutScene", menuName = "Cutscenes/CutScene", order = 1)]
 public class Cutscene : MonoBehaviour
 {
+    public string name;
     public PlayerController _playerController;
     public DialogueManager dialogueManager;
     public List<ElementsContainer> _cutSceneElements;
-    private CinematicBars dialogueUI;
-    private GameObject ui;
+    protected CinematicBars dialogueUI;
+    protected GameObject ui;
     private void Start()
+    {
+        Initialize();
+        WorldVariables.isInCutscene = true;
+        startCutScene();
+    }
+
+    protected void Initialize()
     {
         dialogueUI = GameObject.Find("Dialogue - UI").GetComponent<CinematicBars>();
         ui = GameObject.Find("UI");
-        WorldVariables.isInCutscene = true;
-        startCutScene();
         if (!dialogueManager)
             throw new NullReferenceException();
     }
 
     public void startCutScene()
     {
-        if (!WorldVariables.startOfGame)
-            return;
+        // if (!WorldVariables.startOfGame)
+            // return;
+            
         ui.SetActive(false);
         Debug.Log(WorldVariables.startOfGame);
         Debug.Log("Running Cutscene");
@@ -40,13 +47,20 @@ public class Cutscene : MonoBehaviour
         StartCoroutine(runCutScene());
     }
 
-    IEnumerator runCutScene()
+    protected virtual IEnumerator runCutScene()
     {
         foreach (var elementWrapper in _cutSceneElements)
         {
             CutSceneElement cutSceneElement;
-            if(!elementWrapper.isDialogueElement && elementWrapper.MovementElement != null)
-                cutSceneElement = elementWrapper.MovementElement;
+            if (!elementWrapper.isDialogueElement)
+            {
+                if (!elementWrapper.isTriggerElement && elementWrapper.movementElement != null)
+                    cutSceneElement = elementWrapper.movementElement;
+                else
+                {
+                    cutSceneElement = elementWrapper.triggerElement;
+                }
+            }
             else
             {
                 cutSceneElement = elementWrapper.dialogueElement;
@@ -61,6 +75,7 @@ public class Cutscene : MonoBehaviour
         dialogueUI.Hide(.3f);
         WorldVariables.isInCutscene = false;
         WorldVariables.startOfGame = false;
+        CutsceneManager.Instance.SetCutsceneSeen(this);
         ui.SetActive(true);
         Debug.Log("Cutscene done");
     }
@@ -69,7 +84,9 @@ public class Cutscene : MonoBehaviour
     public class ElementsContainer
     {
         public bool isDialogueElement;
+        public bool isTriggerElement;
         public DialogueElement dialogueElement;
-        public MovementElement MovementElement;
+        public MovementElement movementElement;
+        public TriggerElement triggerElement;
     }
 }
