@@ -40,11 +40,11 @@ public class GhostBehaviour : MonoBehaviour, IInteractable
     {
         if (riddleSolved)
         {
-            dialogueTeller2.TriggerDialogue();
+            dialogueTeller2.TriggerDialogue(true);
         }
         else
         {
-            dialogueTeller1.TriggerDialogue();
+            dialogueTeller1.TriggerDialogue(true);
         }
     }
 

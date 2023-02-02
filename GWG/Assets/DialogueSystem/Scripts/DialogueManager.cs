@@ -29,7 +29,7 @@ namespace DefaultNamespace
             ui = GameObject.Find("UI");
         }
 
-        public void StartDialogue(Dialogue dialogue, DialogueTrigger trigger)
+        public void StartDialogue(Dialogue dialogue, DialogueTrigger trigger, bool lookAt)
         {
             Debug.Log("Starting Dialogue");
             ui.SetActive(false);
@@ -38,7 +38,8 @@ namespace DefaultNamespace
             {
                 currentDialogPartner = trigger.transform.parent.gameObject;
                 dialogPartnerRot = currentDialogPartner.transform.rotation;
-                trigger.transform.parent.LookAt(klausKreis.transform);
+                if(lookAt)
+                    trigger.transform.parent.LookAt(klausKreis.transform);
 
                 var dialogPartnerPos = currentDialogPartner.transform.position;
                 dialogPartnerPos.y = klausKreis.transform.position.y;

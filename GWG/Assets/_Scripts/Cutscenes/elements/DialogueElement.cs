@@ -15,7 +15,7 @@ namespace _Scripts.Cutscenes
         {
             GameEvents.OnFinishedDialogue += onEndDialogue;
             isActive = true;
-            dialogueManager.StartDialogue(dialogue, null);
+            dialogueManager.StartDialogue(dialogue, null, true);
             Debug.Log("Starting Dialogue");
             if (dialogueCamera != null)
                 dialogueCamera.SetActive(true);

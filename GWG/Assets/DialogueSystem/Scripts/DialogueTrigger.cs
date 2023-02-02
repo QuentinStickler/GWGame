@@ -7,10 +7,9 @@ public class DialogueTrigger : MonoBehaviour {
 
 	public Dialogue dialogue;
 
-	public void TriggerDialogue ()
+	public void TriggerDialogue(bool lookAt)
 	{
-		Debug.Log("Triggering Dialogue");
-		FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this);
+		FindObjectOfType<DialogueManager>().StartDialogue(dialogue, this, lookAt);
 	}
 
 }

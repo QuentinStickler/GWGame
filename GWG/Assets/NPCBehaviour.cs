@@ -7,10 +7,11 @@ using UnityEngine;
 public class NPCBehaviour : MonoBehaviour, IInteractable
 {
     public DialogueTrigger dialogueTrigger;
+    public bool lookAt = true;
 
     public void Interact()
     {
-        dialogueTrigger.TriggerDialogue();
+        dialogueTrigger.TriggerDialogue(lookAt);
     }
 
     public void Glow()
