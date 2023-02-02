@@ -23745,8 +23745,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 125.01, y: 158.2}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 136.4, y: 207.59}
+  m_SizeDelta: {x: 238.3, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1433170070
 MonoBehaviour:
@@ -23768,7 +23768,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'H - HIDE UI
+  m_text: 'W,A,S,D - Move
+
+    H - HIDE UI
 
     Q - SCAN
 
@@ -32522,9 +32524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Denk dran, was Pythagoras einst gesagt hat:
-
-    9 + x = 25'
+  m_text: "Denk dran, was Pythagoras einst gesagt hat:\n3\xB2 + x\xB2 = 5\xB2"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
