@@ -64,6 +64,7 @@ public class ComputerMinigame : MonoBehaviour, ITriggerable
         background.color = new Color(83 / 255f, 210 / 255f, 255 / 255f);
         Prompt.text = "Virus gelöscht!";
         WorldVariables.SetRepairStatus(50);
+        GameObject.Find("ScoolRepairedText").GetComponent<TextMeshProUGUI>().text = WorldVariables.GetSchoolRepairStatus() + " %";
         OnTriggered();
         yield return new WaitForSeconds(2f);
         Cursor.visible = true;
