@@ -12,6 +12,7 @@ public class CutsceneManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+        GameEvents.OnLoadScene += SetCutsceneSeen;
     }
 
     private void OnDisable()
@@ -58,10 +59,18 @@ public class CutsceneManager : MonoBehaviour
             Debug.Log(cutscene.Key);
         }
     }
-
-    public void SetCutsceneSeen(Cutscene cutscene)
+    
+    public void SetCutsceneSeen(bool seen)
     {
-        if (_cutsceneSeen.ContainsKey(cutscene.name))
-            _cutsceneSeen[cutscene.name] = true;
+        if (seen == false)
+        {
+            _cutsceneSeen.Remove("Starting Cutscene");
+        }
+    }
+
+    public void SetCutsceneSeen(string name, bool seen)
+    {
+        if (_cutsceneSeen.ContainsKey(name))
+            _cutsceneSeen[name] = seen;
     }
 }

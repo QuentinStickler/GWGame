@@ -41,6 +41,10 @@ public class SceneTracker : MonoBehaviour
 
         Debug.Log("Current Scene: " + _currentScene);
         Debug.Log("Previous Scene: " + _previousScene);
+        if (_currentScene == 2)
+        {
+            WorldVariables.startOfGame = true;
+        }
     }
 
     public int GetCurrentScene()

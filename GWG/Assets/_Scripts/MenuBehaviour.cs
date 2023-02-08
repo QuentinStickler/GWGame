@@ -12,19 +12,26 @@ public class MenuBehaviour : MonoBehaviour
 
     public void StartNewGame()
     {
+        //WorldVariables.startOfGame = true;
         SceneManager.LoadScene(1);
-        WorldVariables.startOfGame = true;
+        GameEvents.OnLoadScene?.Invoke(false);
     }
 
     public void StartGameAndSkipCutScene()
     {
+        //WorldVariables.startOfGame = false;
         SceneManager.LoadScene(1);
-        WorldVariables.startOfGame = false;
+        GameEvents.OnLoadScene?.Invoke(true);
     }
 
     public void ToggleMenu()
     {
         gameObject.SetActive(!gameObject.activeSelf);
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
     
 }

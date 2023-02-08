@@ -31,9 +31,9 @@ public class Cutscene : MonoBehaviour
 
     public void startCutScene()
     {
-        if (!WorldVariables.startOfGame)
-            return;
-         ui.SetActive(false);
+        //if (!WorldVariables.startOfGame)
+            //return;
+        ui.SetActive(false);
         Debug.Log(WorldVariables.startOfGame);
         Debug.Log("Running Cutscene");
         dialogueUI.Show(200,.3f);
@@ -66,7 +66,6 @@ public class Cutscene : MonoBehaviour
             }
             if(cutSceneElement == null)
                 continue;
-            Debug.Log("StartElement");
             cutSceneElement.startElement(this, dialogueManager);
             yield return new WaitWhile(() => cutSceneElement.isActive);
         }
@@ -74,7 +73,7 @@ public class Cutscene : MonoBehaviour
         dialogueUI.Hide(.3f);
         WorldVariables.isInCutscene = false;
         WorldVariables.startOfGame = false;
-        CutsceneManager.Instance.SetCutsceneSeen(this);
+        CutsceneManager.Instance.SetCutsceneSeen(this.name, true);
         ui.SetActive(true);
         Debug.Log("Cutscene done");
     }

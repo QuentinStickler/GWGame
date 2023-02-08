@@ -11,11 +11,5 @@ public class GameEvents
     public static Action OnFoundRightSolutionToGhostGame;
     public static Action<Dialogue> OnFinishedDialogue;
     public static Action OnPickedUpCollectible;
+    public static Action<bool> OnLoadScene;
 }
-
-/*
-Wieder wechseln:
-Light auf Directional setzen, Intensity verringern
-Lighting Settings auf Skybox setzen
-Skybox in Camera auf Solid Color blau setzen
-*/
