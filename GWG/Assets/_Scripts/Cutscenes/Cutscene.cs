@@ -31,10 +31,9 @@ public class Cutscene : MonoBehaviour
 
     public void startCutScene()
     {
-        // if (!WorldVariables.startOfGame)
-            // return;
-            
-        ui.SetActive(false);
+        if (!WorldVariables.startOfGame)
+            return;
+         ui.SetActive(false);
         Debug.Log(WorldVariables.startOfGame);
         Debug.Log("Running Cutscene");
         dialogueUI.Show(200,.3f);

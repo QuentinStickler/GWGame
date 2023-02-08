@@ -8,7 +8,7 @@ public static class WorldVariables
    public static int currentlyCollectedNumber = 0;
    public static int schoolRepaired = 0;
    public static bool isInCutscene;
-   public static bool startOfGame = true;
+   public static bool startOfGame;
 
    public static int GetCurrentlyCollectedNumber()
    {
