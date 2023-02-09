@@ -11,6 +11,7 @@ public class WallTransparency : MonoBehaviour
     private List<Hideable> currentlyInWay = new List<Hideable>();
     private List<Hideable> currentlyTransparent = new List<Hideable>();
     private Room currentRoom;
+    [SerializeField] private LayerMask _layerMask;
 
     // Update is called once per frame
     void Update()
@@ -50,15 +51,24 @@ public class WallTransparency : MonoBehaviour
             throw new NullReferenceException("Player does not have a transform");
         var cameraPos = activeCamera.transform.position;
 
-        var camDistanceToPlayer = Vector3.Magnitude(cameraPos - playerTransform.position);
 
-        var forwardRay = new Ray(cameraPos, playerTransform.position - cameraPos);
-        var backwardRay = new Ray(playerTransform.position, cameraPos - playerTransform.position);
+        var camForward = activeCamera.transform.forward;
+        var direction = playerTransform.position - cameraPos;
+        direction = camForward * Vector3.Dot(camForward, direction);
 
-        var forwardHitArray = Physics.RaycastAll(forwardRay, camDistanceToPlayer);
-        var backwardHitArray = Physics.RaycastAll(backwardRay, camDistanceToPlayer);
+        var camDistanceToPlayer = Vector3.Magnitude(direction);
+        
+        // var forwardRay = new Ray(cameraPos, playerTransform.position - cameraPos);
+        var forwardRay = new Ray(playerTransform.position - direction, direction);
+        // var backwardRay = new Ray(playerTransform.position, cameraPos - playerTransform.position);
+        var backwardRay = new Ray(playerTransform.position, - direction);
 
-        Debug.DrawRay(cameraPos, playerTransform.position - cameraPos, Color.red, Time.deltaTime);
+        var forwardHitArray = Physics.RaycastAll(forwardRay, 0.99f * camDistanceToPlayer, _layerMask);
+        var backwardHitArray = Physics.RaycastAll(backwardRay, 0.99f * camDistanceToPlayer, _layerMask);
+
+        Debug.DrawRay(playerTransform.position - direction, direction,
+            forwardHitArray.Length > 0 || backwardHitArray.Length > 0 ? Color.red : Color.green,
+            Time.deltaTime);
 
 
         addWalls(forwardHitArray);

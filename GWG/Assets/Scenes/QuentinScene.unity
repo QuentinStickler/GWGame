@@ -37030,6 +37030,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeCamera: {fileID: 542283978}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 1801
 --- !u!1001 &1901794539679132461
 PrefabInstance:
   m_ObjectHideFlags: 0
